@@ -1,0 +1,349 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "FastAPI 后端框架搭建 + Provider 接口及默认实现",
+        "description": "搭建 FastAPI 后端框架，定义全部 6 类 Provider 抽象接口（LLM/Embedding/RAG/DocumentEngine/FileStorage/GraphDB），并实现所有标记为 ★ 的默认实现：DeepSeekProvider、DeepSeekEmbedding、PostgresDocumentEngine、LocalFileStorage、AGEGraphDB。BuiltinRAGProvider 暂留桩（Phase 2 实现）。统一 API 响应格式（code/message/data/timestamp）和分页格式。",
+        "details": "产出: 可运行的 API 骨架，所有 Provider 接口已定义并有默认实现。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T01:35:25.568Z"
+      },
+      {
+        "id": "2",
+        "title": "JWT 认证 + 用户/角色/组管理",
+        "description": "实现 JWT Bearer Token 认证（Access Token 15min + Refresh Token 7天），用户 CRUD，角色管理（admin/developer/viewer），用户组管理（admins/developers/viewers 支持父子层级嵌套），Token 黑名单机制，401 自动刷新。",
+        "details": "用户模型: id/UUID, username, email, full_name, is_active, is_superuser, roles, groups, custom_attributes, created_at, updated_at, last_login。登录 POST /api/auth/login (form-urlencoded)，刷新 POST /api/auth/refresh。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T01:37:25.242Z"
+      },
+      {
+        "id": "3",
+        "title": "数据集 CRUD",
+        "description": "数据集语义上相当于\"命名空间/知识空间\"，每个数据集包含独立的本体定义、实例数据和图谱。实现 GET/POST /api/datasets 和 GET/DELETE /api/datasets/{dataset_id}。每个数据集独立 Schema ({dataset_id}_ontology) 和独立图空间 ({dataset_id}_graph)。",
+        "details": "数据模型: dataset_id (_ontology_xxx), display_name, description, created_at, updated_at。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T01:44:17.445Z"
+      },
+      {
+        "id": "4",
+        "title": "本体类型定义管理 (Object/Link/Action Types)",
+        "description": "实现 Object Types（节点类型定义，含属性 PropertyDefinition）、Link Types（有向边/关系定义）、Action Types（可执行操作定义，含 Webhook 配置）的完整 CRUD。支持属性类型 string/number/datetime/boolean，required/unique/indexed 标记。Link Type 含 source_type/target_type/directed。Action Type 含 webhook_url/method/headers/effect_type。",
+        "details": "API: /api/datasets/{id}/ontology/object-types/*, /link-types/*, /action-types/*。支持批量操作。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T01:46:56.687Z"
+      },
+      {
+        "id": "5",
+        "title": "Objects/Links 实例管理",
+        "description": "知识图谱中具体节点(Object)和关系(Link)的实例数据管理。支持 CRUD 单条和批量操作。对象搜索、分页查询。数据写入图数据库（Apache AGE 扩展）。",
+        "details": "API: POST /api/datasets/{id}/ontology/objects/search, POST /api/datasets/{id}/ontology/graph/path, POST /api/datasets/{id}/ontology/graph/traverse。批量: BatchObjectsRequest, BatchLinksRequest。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T01:58:22.935Z"
+      },
+      {
+        "id": "6",
+        "title": "React 前端框架 + Ant Design 布局 + 侧边栏导航",
+        "description": "使用 Vite + React 18+ + Ant Design 5.x + Zustand + AntV G6 搭建前端 SPA。实现登录页（紫色渐变背景 + 居中 400px 卡片）、全局布局（侧边栏多层级导航 + 顶部 Header + 内容区）、路由配置、JWT 拦截器（存储 localStorage、401 自动刷新）、全局样式（Inter 字体、#f4f5f7 背景、自定义滚动条）。",
+        "details": "状态管理 Zustand 支持 localStorage 持久化。Axios baseURL=\"/api\"。响应式布局适配桌面端和移动端。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T02:07:04.210Z"
+      },
+      {
+        "id": "7",
+        "title": "AntV G6 图谱可视化 (2D/3D) + 邻居展开 + 路径查询",
+        "description": "基于 AntV G6 实现 2D/3D 知识图谱可视化。功能：双模式切换（2D浅色主题/3D深色主题）、6种布局算法（层次化/力导向/径向/圆形/网格/同心圆）、图内节点搜索与定位、深度滑块控制展开1-5层、右侧280px详情滑出面板（显示节点属性+关联关系）、工具栏（缩放/适应画布/布局切换/导出）、全屏模式、底部状态栏（节点/边统计）、Tab切换实体图谱/结构图谱。",
+        "details": "API对接: GET graph/stats, GET graph/knowledge, GET graph/neighbors/{obj_type}/{obj_id}, POST graph/path, POST graph/traverse。详情面板响应式: <1200px→240px, <900px→浮动面板。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "5"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T02:15:25.966Z"
+      },
+      {
+        "id": "8",
+        "title": "LLM 辅助建模（三步向导）+ 快速建模",
+        "description": "LLM 辅助建模——三步向导式交互。步骤一：连接配置（项目默认实例/数据库连接参数/DSN连接串三选一，含测试连接），配置 Schema/业务背景/输出语言/高级选项。步骤二：LLM 分析完成后预览生成结果，列表视图+图视图切换，支持 JSON 编辑、级联删除、编译检查+自动修复。步骤三：注册本体定义+触发数据同步（merge/UPSERT语义）。后端 API: POST /api/datasets/{id}/ontology/modeling/analyze-schema, compile, register。",
+        "details": "支持宽表实体提取、自定义LLM配置、排除表。超过5分钟分析超时可配置。快速建模（直接表映射，不用LLM）也在此任务中。数据集已有定义时提示用结构变更检测。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T02:39:17.094Z"
+      },
+      {
+        "id": "9",
+        "title": "暂存区 (Staging) + 版本管理",
+        "description": "实现类 Git 的暂存区机制（staged/commit/discard/undo）和版本管理系统（每次变更创建版本快照，支持版本对比分析和回滚到任意历史版本）。Staging 使用 JSON 存储待提交变更。版本快照存储完整 Ontology 定义。",
+        "details": "API: StagedChangeRef, CommitStagingRequest, UndoStagedChangesRequest。VersionSnapshot, UpdateVersionNotesRequest。前端: /ontology/versions 版本对比与回滚页面。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "4"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T03:08:04.084Z"
+      },
+      {
+        "id": "10",
+        "title": "图遍历与路径查询 API",
+        "description": "实现图遍历与路径查询 API。邻居节点展开（深度1-N层可配置）、最短路径查询、子图遍历、路径查询。底层使用 Apache AGE 图数据库 Cypher 查询实现。",
+        "details": "API: GET /api/datasets/{id}/ontology/graph/neighbors/{obj_type}/{obj_id}, POST /api/datasets/{id}/ontology/graph/path, POST /api/datasets/{id}/ontology/graph/traverse。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T03:20:05.430Z"
+      },
+      {
+        "id": "11",
+        "title": "BuiltinRAGProvider 实现 — 文档解析 + Chunk + 检索 + 问答",
+        "description": "实现 BuiltinRAGProvider 自研 RAG 引擎。依赖 DocumentEngine + Embedding + LLM 三个 Provider 协作。功能: 文档解析（PDF/Word/Markdown/TXT/HTML/CSV/Excel）、Chunk 策略（固定大小/按段落/按标题/语义分块/自定义）、知识库 CRUD、文档上传与管理、检索（全文/向量/混合）、基于知识库的 LLM 问答、流式输出。管理员配置（OSS/文档引擎/模型）。",
+        "details": "文档处理状态机: pending→processing→preprocessed→processed|failed。解析器支持 mineru/docling/paddleocr。分块参数: 大小1200，重叠100。前端页面: /ragflow/knowledge-base, /ragflow/chat, /ragflow/retrieval, /ragflow/model-config, /ragflow/service-config。角色权限: VIEWER查询/DEVELOPER管理/ADMIN配置。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T03:37:48.171Z"
+      },
+      {
+        "id": "12",
+        "title": "RAG 评测框架",
+        "description": "RAG 评测框架。创建评测数据集（问题+参考答案）、上传评测数据文件或手动创建、发起评测运行、获取评测结果（逐条+汇总）、多次运行对比。评测指标：答案准确性、召回率、引用准确率、响应时间。",
+        "details": "前端: /rag-evaluation 评测管理页面。API: EvaluationConfig, EvaluationRunCreate, CompareRunsRequest。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "11"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T03:52:50.731Z"
+      },
+      {
+        "id": "13",
+        "title": "GraphRAG — 知识图谱增强检索 + 知识问答",
+        "description": "基于图结构的知识增强检索系统。Workspace 管理（创建/切换/删除/默认空间）、文档解析与分块、知识图谱构建（LLM实体抽取+关系抽取写入AGE图存储）、6种检索模式（本地/全局/混合/混合检索/朴素/绕过）、多轮对话问答、知识图谱可视化（实体-关系网络G6渲染，支持缩放/平移/高亮/标签筛选/搜索）。",
+        "details": "前端: /graphrag/knowledge-base, /graphrag/documents, /graphrag/graph, /graphrag/qa, /graphrag/model-config。默认实体类型: organization/person/geo/event/category。模型配置: LLM/Embedding/Rerank/VLM 四种类型，模型提供商+模型两层架构，格式 model@provider。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T04:06:14.837Z"
+      },
+      {
+        "id": "14",
+        "title": "对话助手 — 多轮对话 + 流式输出",
+        "description": "多轮对话助手 + 流式输出。创建/管理对话助手（配置名称/头像/关联知识库/模型参数 Temperature 0.1, Top-P 0.3, 相似度阈值, Top N 6/系统提示词 {{knowledge}} 变量）、多轮会话管理、流式实时展示回答、引用标记展开查看命中切片与原文链接、空结果兜底回复。",
+        "details": "前端: /ragflow/chat 对话视图。Enter发送/Shift+Enter换行。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "11"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T06:10:45.604Z"
+      },
+      {
+        "id": "15",
+        "title": "多数据源同步（PostgreSQL/MySQL/Hive/HBase/Lindorm）",
+        "description": "实现对多种外部数据源的连接与数据同步。支持 PostgreSQL / MySQL / Hive / HBase / Lindorm 等数据源接入。数据同步使用 merge（UPSERT）语义：目标不存在则 INSERT，存在则 UPDATE。根据 ID 防重复。小数据量同步执行，大数据量自动转异步后台任务。增量同步+断点续传。",
+        "details": "API: SyncRequest, SyncConfig。异步任务管理: GET /api/tasks/{task_id}, GET /api/tasks/{task_id}/logs, POST /api/tasks/{task_id}/cancel。状态: pending→running→completed|failed|cancelled。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "3"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T06:28:35.533Z"
+      },
+      {
+        "id": "16",
+        "title": "RBAC + ACR 细粒度权限管控",
+        "description": "细粒度行级和属性级安全控制。ACR 规则定义（比较运算符 eq/ne/in/not_in/intersects，用户属性 user_id/username/groups/roles/custom:*）、规则组管理、规则组绑定到用户/组。ACR 配置: acr_enabled, row_level_security, property_level_security, userid_injection, admin_bypass, admin_roles, public_data_allowed。SQL 查询时动态注入条件。",
+        "details": "API: AccessRuleCreate/Update, ACRConfigUpdate, AdminRolesUpdate。前端: /admin/acr ACR配置页面。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "2"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T06:36:53.205Z"
+      },
+      {
+        "id": "17",
+        "title": "Skills 系统（预设 Skills + 自定义上传 + 自动生成）",
+        "description": "可插拔的技能扩展框架。Skill CRUD（创建/编辑/删除/搜索/分类过滤）、Markdown 格式编写技能文档（SKILL.md + prompt.md + schema.json + scripts/）、预设技能包导入（rdb-to-ontology/csv-to-ontology/ontology-data-build/ontology-subgraph-search/ontology-ops-agent/polardb-kb-search-agent/polardb-kb-agent）、Zip 包上传下载、从本体 Action Types 自动生成技能定义。",
+        "details": "Skill 结构: skill-name/SKILL.md(描述元数据), prompt.md(LLM提示词), schema.json(输入输出), scripts/(自动化)。API: CRUD + presets + upload + enable/disable/clone/regenerate + download + generate from dataset。前端: /skills 管理页面。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "4"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T07:02:32.803Z"
+      },
+      {
+        "id": "18",
+        "title": "API Key / PAT 管理 + Token 黑名单",
+        "description": "API Key（管理员级别系统级 API Key）+ Personal Access Token（用户级别个人令牌）的完整管理。创建/撤销/列表查询。Token 黑名单（按 Token ID 或按用户批量撤销、即时生效）。令牌加密存储。",
+        "details": "API: GET/POST /api/api-keys (用户), GET /api/admin/api-keys (管理员), GET/POST /api/personal-tokens (用户), GET /api/admin/tokens (黑名单)。前端: /admin/tokens, /api-keys, /personal-tokens。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "2"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T07:17:30.949Z"
+      },
+      {
+        "id": "19",
+        "title": "系统配置管理界面（Provider 切换可视化 + 连接测试）",
+        "description": "全局系统配置管理界面。数据库连接配置（含连接测试）、文档引擎类型配置与切换（PostgreSQL/OpenSearch）、对象存储 OSS 配置（本地/MinIO/S3，含测试连接）、LLM/Embedding Provider 配置与切换、系统级参数（默认分页大小/会话超时等）。支持 ${env:VAR_NAME} 语法读取环境变量，UI 修改即时生效（不重启）。配置优先级: 环境变量 > .env > 数据库 system_config > 代码默认值。",
+        "details": "API: GET/POST /api/admin/system-config, GET/PUT/DELETE /api/admin/system-config/{key}。前端: /admin/system-config。SystemConfigItem, EngineConfig, StorageConfig, LLMConfig。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T08:04:59.258Z"
+      },
+      {
+        "id": "20",
+        "title": "快速建模 + 结构变更检测 + 异步任务队列",
+        "description": "实现快速建模（直接基于数据库表结构生成，每表→ObjectType，无需LLM）、结构变更检测（自动对比当前Schema与已注册Ontology定义差异 → 审核差异清单 → 增量更新）、异步任务队列（内存队列开发用/Redis+Celery生产用）支持 LLM Schema分析/数据同步/文档解析/GraphRAG运行/RAG评测运行。",
+        "details": "前端: /ontology/data-management 数据管理入口（含4个子入口），/ontology/modeling LLM建模。结构变更检测复用 SchemaAnalyzeRequest。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "8"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T08:16:21.542Z"
+      },
+      {
+        "id": "21",
+        "title": "前端全部页面实现（概览 + 本体 + RAG + GraphRAG + 系统管理）",
+        "description": "实现所有前端页面路由与组件。核心页面: Dashboard 概览(/)、数据集列表(/datasets)、类型定义(/ontology/types Tab切换)、LLM建模(/ontology/modeling 三步向导)、实例管理(/ontology/instances)、数据管理(/ontology/data-management)、版本管理(/ontology/versions)、FGAC权限(/ontology/permissions)、知识库管理(/ragflow/knowledge-base)、对话助手(/ragflow/chat)、内容检索(/ragflow/retrieval)、模型配置(/ragflow/model-config)、服务配置(/ragflow/service-config)、RAG评测(/rag-evaluation)、GraphRAG全部页面、Skills管理(/skills)、系统管理全部6个子模块、以及我的API Key/PAT/个人中心/健康检查/403页面。",
+        "details": "共计约30+前端页面。所有表格支持 responsive+sort+filter，表单支持 validation，Modal confirm，Upload progress，Transfer search+select。UI 遵循设计规范: Inter字体/#f4f5f7背景/自定义滚动条。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "6"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T07:40:47.445Z"
+      },
+      {
+        "id": "22",
+        "title": "Docker 部署与环境配置",
+        "description": "Docker 部署支持。编写 Dockerfile（FastAPI 后端 + React 前端 Nginx 静态文件）、docker-compose.yml（PostgreSQL 14+ 含 pgvector 和 Apache AGE 扩展 + FastAPI + Nginx + Redis可选 + 本地文件存储卷挂载）。环境变量管理（.env 文件模板）。健康检查端点 /api/health。",
+        "details": "端口: PostgreSQL 5432, FastAPI 8080, React/Nginx 3000。生产部署可选 Nginx/Traefik 反向代理+FastAPI水平扩展+Redis+Celery。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T07:51:07.125Z"
+      },
+      {
+        "id": "23",
+        "title": "自动化测试（单元测试 + 集成测试 + E2E）",
+        "description": "后端单元测试 + 集成测试（pytest + pytest-asyncio）。前端组件测试 + E2E 测试（Vitest + Playwright）。API 自动化测试覆盖全部端点。Provider 可替换性验证测试（切换不同 Provider 实现验证接口一致性）。",
+        "details": "测试覆盖: 认证流程、CRUD操作、LLM建模流程、RAG检索问答、GraphRAG、ACR权限、异步任务。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          "1"
+        ],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T08:31:45.434Z"
+      },
+      {
+        "id": "24",
+        "title": "文档（API文档 + Provider扩展指南 + 部署手册）",
+        "description": "代码文档与运维文档。API 文档（FastAPI 自动生成 OpenAPI 3.1）、前端组件文档、Provider 扩展开发指南（如何实现新 Provider 的 Step-by-step 教程）、部署运维手册、用户使用手册。",
+        "details": "Provider 扩展指南覆盖全部6类接口的扩展步骤+示例代码。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "low",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T08:36:46.322Z"
+      },
+      {
+        "id": "25",
+        "title": "补充 Provider 实现（可选：OpenSearch/Neo4j/MinIO/Ollama/RAGFlow）",
+        "description": "OpenSearch 专业搜索引擎、Neo4j 图数据库、MinIO 对象存储（S3兼容）、Ollama 本地LLM/Embedding、RAGFlow 外部RAG引擎。所有可选 Provider 遵循统一接口规范，可在系统配置中切换。",
+        "details": "远期可选。仅当需要时实现。每个 Provider 独立评估、独立实现。",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [],
+        "priority": "low",
+        "subtasks": [],
+        "updatedAt": "2026-06-08T12:47:28.142Z"
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2026-06-08T12:47:28.142Z",
+      "taskCount": 25,
+      "completedCount": 25,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}

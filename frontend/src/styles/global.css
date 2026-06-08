@@ -1,0 +1,11 @@
+:root {
+  --bg-color: #f4f5f7;
+  --primary: #7c3aed;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-color); color: #1e293b; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c0c4cc; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #909399; }
+a { text-decoration: none; color: inherit; }

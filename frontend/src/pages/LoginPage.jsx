@@ -37,7 +37,7 @@ export default function LoginPage() {
     <div style={styles.container}>
       <Card style={styles.card} variant="outlined">
         <div style={styles.logo}>♦</div>
-        <Title level={3} style={styles.title}>Ontology Platform</Title>
+        <Title level={3} style={styles.title}>OntologyReady 2.0</Title>
         <Text type="secondary" style={styles.subtitle}>本体知识管理平台</Text>
         <Form onFinish={onFinish} size="large" style={styles.form}>
           <Form.Item name="username" rules={[{ required: true, message: '请输入用户名' }]}>
@@ -51,7 +51,7 @@ export default function LoginPage() {
           </Form.Item>
         </Form>
       </Card>
-      <Text type="secondary" style={styles.footer}>Ontology Knowledge Platform © 2026</Text>
+      <Text type="secondary" style={styles.footer}>OntologyReady 2.0 © 2026</Text>
     </div>
   );
 }

@@ -17,7 +17,7 @@ def _load_json_config(path: str) -> dict[str, Any]:
 
 class Settings(BaseSettings):
     # ── App ──────────────────────────────────────────────
-    app_name: str = "Ontology Knowledge Platform"
+    app_name: str = "OntologyReady 2.0"
     app_version: str = "0.1.0"
     debug: bool = False
     secret_key: str = "change-me-in-production"

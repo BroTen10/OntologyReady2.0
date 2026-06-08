@@ -31,7 +31,7 @@
 ### 1. Clone & Configure
 
 ```bash
-cd ontology-platform
+cd ontology-ready
 
 # Create .env from template
 cat > .env << 'EOF'
@@ -271,7 +271,7 @@ Verify in `backend/config/providers.json` that `${env:VAR_NAME}` matches the var
 ## Directory Layout
 
 ```
-ontology-platform/
+ontology-ready/
 ├── backend/
 │   ├── app/              # FastAPI application
 │   │   ├── api/          # Route handlers

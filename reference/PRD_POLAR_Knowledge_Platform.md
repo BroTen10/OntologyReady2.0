@@ -1,6 +1,6 @@
 # POLAR 知识平台 (POLAR Knowledge Platform) — PRD 复刻文档
 
-> **目标**: 1:1 复刻该 Ontology Platform 网站系统  
+> **目标**: 1:1 复刻该 OntologyReady 2.0 网站系统  
 > **分析日期**: 2026-06-06  
 > **原系统地址**: http://47.115.252.39:8080/  
 > **系统名称**: POLAR 知识平台 v1.0.0  

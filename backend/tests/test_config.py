@@ -7,7 +7,7 @@ from app.config import Settings
 
 def test_settings_defaults():
     s = Settings()
-    assert s.app_name == "Ontology Knowledge Platform"
+    assert s.app_name == "OntologyReady 2.0"
     assert s.access_token_expire_minutes == 15
     assert s.refresh_token_expire_days == 7
     assert s.database_max_connections == 20

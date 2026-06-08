@@ -1,4 +1,4 @@
-# Ontology Knowledge Platform — API Reference
+# OntologyReady 2.0 — API Reference
 
 ## Overview
 

@@ -125,7 +125,7 @@ export default function AppLayout() {
         style={{ background: colorBgContainer, borderRight: '1px solid #e8e8e8' }}
       >
         <div style={styles.logo}>
-          {collapsed ? '♦' : '♦ Ontology Platform'}
+          {collapsed ? '♦' : '♦ OntologyReady 2.0'}
         </div>
         <Menu
           mode="inline"
